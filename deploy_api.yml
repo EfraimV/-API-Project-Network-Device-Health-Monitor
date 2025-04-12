@@ -1,0 +1,12 @@
+- name: Deploy Network API  
+  hosts: api_servers  
+  tasks:  
+    - name: Install Python deps  
+      ansible.builtin.pip:  
+        requirements: /app/requirements.txt  
+        
+    - name: Start FastAPI  
+      ansible.builtin.command:  
+        cmd: uvicorn app.main:app --host 0.0.0.0  
+      async: 300  
+      poll: 0  
